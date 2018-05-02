@@ -1,0 +1,18 @@
+#compdef awsprofile
+args=`cat ~/.aws/credentials | grep '\[' | cut -d '[' -f2 | cut -d ']' -f1 | ssed 's/\n/ /g'`
+
+_awsprofile() { 
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+ 
+    _arguments \
+        '1: :->proflie'
+ 
+    case $state in
+    proflie)
+        _arguments '1:Countries:(`echo $args` None)'
+    ;;
+    esac
+}
+ 
+_awsprofile "$@"
